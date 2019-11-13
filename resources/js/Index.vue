@@ -1,7 +1,7 @@
 <template>
-    <div id="main">
+    <div id="main" class="container is-fluid">
         <header id="header">
-          <Menu></Menu>
+          <Header></Header>
         </header>
         <div id="content">
           <router-view></router-view>
@@ -9,7 +9,7 @@
     </div>
 </template>
 <script>
-  import Menu from './components/Menu.vue'
+  import Header from './components/Header.vue'
   export default {
     data() {
       return {
@@ -17,7 +17,7 @@
       }
     },
     components: {
-      Menu
+      Header
     }
   }
 </script>

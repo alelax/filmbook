@@ -1,4 +1,3 @@
-require('./bootstrap');
 import 'es6-promise/auto'
 import axios from 'axios'
 import Vue from 'vue'
@@ -23,6 +22,7 @@ Vue.use(VueAuth, auth)
 
 // Load Index
 Vue.component('index', Index)
+
 const app = new Vue({
   el: '#app',
   router
