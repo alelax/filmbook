@@ -1,8 +1,10 @@
 <template>
-  <div class="container is-widescreen">
+  <div id="login" class="container is-widescreen">
       <div class="column is-vcentered is-6 is-offset-one-quarter">
         <div>
-          <p class="title is-2">Filmbook</p>
+          <p class="title is-2">
+            <router-link to="/">Filmbook</router-link>
+          </p>
           <p class="subtitle is-4">Login</p>
           <div class="alert alert-danger" v-if="has_error && !success">
             <p v-if="error == 'login_error'">Validation Errors.</p>
@@ -77,6 +79,15 @@
 </script>
 
 <style scoped>
+  #login {
+    
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    transform: translate(-50%, 30%);
+  
+  }
   input {
     margin-bottom: 35px;
   }

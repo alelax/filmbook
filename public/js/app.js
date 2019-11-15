@@ -3136,10 +3136,10 @@ __webpack_require__.r(__webpack_exports__);
         // LOGGED ADMIN
         admin: [{
           name: 'home',
-          path: '/'
+          path: 'home'
         }, {
           name: 'Dashboard',
-          path: '/dashboard'
+          path: 'dashboard'
         }]
       }
     };
@@ -3149,7 +3149,20 @@ __webpack_require__.r(__webpack_exports__);
     logout: function logout() {
       var redirect = this.$auth.redirect();
       var app = this;
-      this.$auth.logout();
+      this.$auth.logout({
+        success: function success() {
+          // handle redirection
+          app.success = true;
+          var redirectTo = 'home';
+          this.$router.push({
+            name: redirectTo
+          });
+        },
+        error: function error() {
+          app.has_error = true;
+          app.error = res.response.data.error;
+        }
+      });
     }
   }
 });
@@ -21793,7 +21806,6 @@ var config = {
   logoutData: {
     url: 'auth/logout',
     method: 'POST',
-    redirect: '/',
     makeRequest: true
   },
   fetchData: {

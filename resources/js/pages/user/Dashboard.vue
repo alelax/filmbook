@@ -1,30 +1,52 @@
 <template>
-    <div class="container">
-      <Menu></Menu>
-      <div class="card card-default">
-          <div class="card-header">Dashboard</div>
-          <div class="card-body">
-              User Dashboard 
-          </div>
+  <div class="columns">
+    <div class="column is-2">
+      <Menu></Menu>      
+    </div>
+    <div class="column is-9">
+      <div class="columns is-multiline ">
+        <div class="column is-3" v-for="item in results">
+          <Card
+            :title="item.title"
+            :poster_path="item.poster_path"
+            :rating="item.vote_average"
+            :overview="item.overview">
+          </Card>
+        </div>
       </div>
     </div>
+  </div>
 </template>
 <script>
+  import { APIService } from '../../apiService' 
   import Menu from '../../components/Menu.vue'
+  import Card from '../../components/Card.vue'
   export default {
     data() {
       return {
-        movies: []
+        page: Number,
+        results: [],
+        total_pages: Number,
+        total_results: Number
       }
     },
     components: {
-      Menu
+      Menu,
+      Card
     },
-    beforeCreate: function () {
-      /* axios
-        .get('https://api.themoviedb.org/3/movie/550?api_key=eb256750e09137c9565156e96a6e8ce1')
-        .then(response => console.log(response, "movies", this.movies)) */
+    created: async function () {
+      const apiService = new APIService()
+      const { page, results, total_pages, total_results } = await apiService.getPopulars()
+      this.page = page,
+      this.results = results,
+      this.total_pages = total_pages,
+      this.total_results = total_results
+      console.log('resss', results)      
     }
 
   }
 </script>
+
+<style scoped>
+  
+</style>

@@ -1,8 +1,8 @@
 <template>
-    <div id="main" class="container is-fluid">
-        <header id="header">
+    <div id="main" class="container is-fluid is-paddingless">
+        <!-- <header id="header">
           <Header></Header>
-        </header>
+        </header> -->
         <div id="content">
           <router-view></router-view>
         </div>

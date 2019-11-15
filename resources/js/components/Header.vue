@@ -47,11 +47,7 @@
               </router-link>
             </div>
             <div>
-              <button 
-                
-                class="button is-danger"
-                @click.prevent="logout()">Logout
-              </button>
+              <button cass="button is-danger" @click.prevent="logout()">Logout</button>
             </div>
           </div>
         </div> 
@@ -73,8 +69,8 @@
           ],          
           // LOGGED ADMIN
           admin: [
-            { name: 'home', path: '/' },
-            { name: 'Dashboard', path: '/dashboard' }
+            { name: 'home', path: 'home' },
+            { name: 'Dashboard', path: 'dashboard' }
           ]
         }
       }
@@ -85,7 +81,18 @@
         logout: function() {
           var redirect = this.$auth.redirect()
           var app = this
-          this.$auth.logout()
+          this.$auth.logout({
+            success: function() {
+            // handle redirection
+            app.success = true
+            const redirectTo = 'home'
+            this.$router.push({name: redirectTo})
+            },
+            error: function() {
+              app.has_error = true
+              app.error = res.response.data.error
+            },
+          })
         }
       
     }

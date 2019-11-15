@@ -14,10 +14,11 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-  <div id="app" class="section is-paddingless">
+  <div id="app" class="is-paddingless">
     <index></index>
   </div>
   <!-- Scripts -->
-  <script src="{{ asset('js/app.js') }}" defer></script>
+  <!-- <script src="http://localhost:8080/js/app.js"></script> -->
+  <script src="{{ mix('js/app.js') }}" defer></script>
 </body>
 </html>
