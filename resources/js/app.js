@@ -23,6 +23,10 @@ Vue.use(VueAuth, auth)
 // Load Index
 Vue.component('index', Index)
 
+
+//Event Bus
+export const eventBus = new Vue()
+
 const app = new Vue({
   el: '#app',
   router

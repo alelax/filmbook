@@ -6,10 +6,10 @@
       </p>
       <ul class="menu-list">
         <router-link to="/">Home</router-link>
-        <router-link to="dashboard">Dashboard</router-link>        
+        <button @click="refreshDashboard">Dashboard</button>        
         <hr>
-        <li><a>MyList</a></li>
-        <li><a>Watched</a></li>
+        <li><a @click="getMyList">MyList</a></li>
+        <li><a @click="getMyWatchedList">Watched</a></li>
         <div class="buttons">
           <button class="button is-danger" @click.prevent="logout()">Logout</button>
         </div>
@@ -18,9 +18,14 @@
   </div>
 </template>
 <script>
+  import { eventBus } from '../app'
+  import { APIService } from '../apiService'
+  
   export default {
     data() {
-      return {
+      return {        
+        myListItems: {},
+        watchListItems: {},
         routes: {
           // UNLOGGED
           unlogged: [
@@ -37,23 +42,41 @@
     },
     mounted() {
     },
-    methods: {      
-        logout: function() {
-          var redirect = this.$auth.redirect()
-          var app = this
-          this.$auth.logout({
-            success: function() {
-            // handle redirection
-            app.success = true
-            const redirectTo = 'home'
-            this.$router.push({name: redirectTo})
-            },
-            error: function() {
-              app.has_error = true
-              app.error = res.response.data.error
-            },
-          })
-        }
+    methods: {   
+      getMyList: async function () {
+        const apiService = new APIService()
+        const savedItems = await apiService.getMyList()
+        this.myListItems = savedItems.data        
+        eventBus.$emit('showToWatchItem', this.myListItems)
+      },
+      getMyWatchedList: async function () {
+        const apiService = new APIService()
+        const watchedItems = await apiService.getMyWatchedList()
+        this.myListItems = watchedItems.data        
+        eventBus.$emit('showToWatchedItem', this.myListItems)
+      },
+      refreshDashboard: async function (params) {
+        const apiService = new APIService()
+        const obj = await apiService.getPopulars()
+        
+        eventBus.$emit('dashboardRefresh', obj)
+      },   
+      logout: function() {
+        var redirect = this.$auth.redirect()
+        var app = this
+        this.$auth.logout({
+          success: function() {
+          // handle redirection
+          app.success = true
+          const redirectTo = 'home'
+          this.$router.push({name: redirectTo})
+          },
+          error: function() {
+            app.has_error = true
+            app.error = res.response.data.error
+          },
+        })
+      }
       
     }
   }

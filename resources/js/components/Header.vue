@@ -1,58 +1,27 @@
 <template>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      
-      <router-link :to="{name: 'home'}" class="navbar-item"> <strong>Filmbook</strong> </router-link>
-      
-
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
+  <nav class="level">
+    <!-- Left side -->
+    <div class="level-left">        
+      <div class="level-item">
+        <div class="field has-addons">
+          <p class="control">
+            <input class="input" type="text" placeholder="Cerca film o serie tv">
+          </p>
+          <p class="control">
+            <button class="button">
+              Search
+            </button>
+          </p>
+        </div>
+      </div>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-start">
-        <!-- <a class="navbar-item">
-          Home
-        </a>
-
-        <a class="navbar-item">
-          Documentation
-        </a> -->
-      </div>
-
-      <div class="navbar-end">
-        <div class="navbar-item" v-if="!$auth.check()">
-          <div class="buttons">
-            <div v-for="(route, key) in routes.unlogged" v-bind:key="route.path">
-              <router-link 
-                :to="{ name : route.path }" 
-                :key="key" 
-                class="button" 
-                :class="{'is-light':route.class.light,'is-primary':route.class.primary}">{{route.name}}
-              </router-link>
-            </div>
-          </div>
-        </div> 
-
-        <div class="navbar-item" v-if="$auth.check()">
-          <div class="buttons">
-            <div v-for="(route, key) in routes.admin" v-bind:key="route.path">
-              <router-link 
-                :to="{ name : route.path }" 
-                :key="key" 
-                class="button is-primary">{{route.name}}
-              </router-link>
-            </div>
-            <div>
-              <button cass="button is-danger" @click.prevent="logout()">Logout</button>
-            </div>
-          </div>
-        </div> 
-          
-      </div>
+    <!-- Right side -->
+    <div class="level-right">
+      <p class="level-item"><strong>All</strong></p>
+      <p class="level-item"><a>Film</a></p>
+      <p class="level-item"><a>Serie Tv</a></p>
+      <p class="level-item"><a>Categories</a></p>
     </div>
   </nav>
 </template>
@@ -98,15 +67,10 @@
     }
   }
 </script>
-<style>
-.navbar {
-  margin-bottom: 30px;
-  
-}
-
-.buttons > * {
-  margin-left: 15px;
-}
+<style lang="scss" scoped>
+  .level {
+    margin-top: 20px;    
+  }
 </style>
 
 

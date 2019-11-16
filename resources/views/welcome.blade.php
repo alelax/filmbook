@@ -14,7 +14,7 @@
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-  <div id="app" class="is-paddingless">
+  <div id="app" class="section is-paddingless">
     <index></index>
   </div>
   <!-- Scripts -->

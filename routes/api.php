@@ -32,4 +32,21 @@ Route::prefix('v1')->group(function () {
             Route::post('logout', 'AuthController@logout');
         });
     });
+
+    Route::prefix('action')->group(function () {
+        // Below mention routes are available only for the authenticated users.
+        Route::middleware('auth:api')->group(function () {
+            // Store film and series in myList
+            Route::post('store', 'UserController@store');
+            Route::post('store-watched', 'UserController@store');
+
+            Route::get('my-list', 'UserController@myList');
+
+
+            Route::get('my-watched-list', 'UserController@myWatchedList');
+
+            
+        });
+    });
+
 });

@@ -23,6 +23,7 @@ class Authenticate extends Middleware
     // Override handle method
     public function handle($request, Closure $next, ...$guards)
     {
+        //var_dump($request);die();
         if ($this->authenticate($request, $guards) === 'authentication_failed') {
             return response()->json(['error'=>'Unauthorized'],400);
         }
@@ -36,6 +37,7 @@ class Authenticate extends Middleware
             $guards = [null];
         }
         foreach ($guards as $guard) {
+            //var_dump($this->auth->guard());die();
             if ($this->auth->guard($guard)->check()) {
                 return $this->auth->shouldUse($guard);
             }

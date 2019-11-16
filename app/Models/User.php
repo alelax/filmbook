@@ -46,4 +46,9 @@ class User extends Authenticatable implements JWTSubject {
     {
         return [];
     }
+
+    public function films()
+    {
+        return $this->hasMany('App\Models\Film', 'userId');
+    }
 }
