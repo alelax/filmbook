@@ -55,7 +55,7 @@
       poster_path: String,
       rating: Number,
       overview: String,
-      id: Number
+      externalId: Number
     },
     methods: {
       ciao: function() { console.log('ciao') },
@@ -72,6 +72,7 @@
     },
     created: function () {
       this.cardData = {...this.$props}
+      console.log('this.cardData', this.cardData)
     }     
   }
 </script>

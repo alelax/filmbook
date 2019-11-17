@@ -6,10 +6,13 @@
       </p>
       <ul class="menu-list">
         <router-link to="/">Home</router-link>
-        <button @click="refreshDashboard">Dashboard</button>        
+        <router-link to="/dashboard">Dashboard</router-link>
+        <!-- <button @click="refreshDashboard">Dashboard</button>     -->    
         <hr>
-        <li><a @click="getMyList">MyList</a></li>
-        <li><a @click="getMyWatchedList">Watched</a></li>
+        <!-- <li><a @click="getMyList">MyList</a></li> -->
+        <router-link to="/dashboard/my-list">MyList</router-link>
+        <router-link to="/dashboard/watched">Watched</router-link>
+        <!-- <li><a @click="getMyWatchedList">Watched</a></li> -->
         <div class="buttons">
           <button class="button is-danger" @click.prevent="logout()">Logout</button>
         </div>
@@ -52,13 +55,12 @@
       getMyWatchedList: async function () {
         const apiService = new APIService()
         const watchedItems = await apiService.getMyWatchedList()
-        this.myListItems = watchedItems.data        
-        eventBus.$emit('showToWatchedItem', this.myListItems)
+        this.watchListItems = watchedItems.data
+        eventBus.$emit('showWatchedItem', this.watchListItems)
       },
       refreshDashboard: async function (params) {
         const apiService = new APIService()
         const obj = await apiService.getPopulars()
-        
         eventBus.$emit('dashboardRefresh', obj)
       },   
       logout: function() {

@@ -5,6 +5,9 @@ import Home from './pages/Home'
 import Register from './pages/Register'
 import Login from './pages/Login'
 import Dashboard from './pages/user/Dashboard'
+import Browse from './pages/user/Browse'
+import MyList from './pages/user/MyList'
+import Watched from './pages/user/Watched'
 
 // Routes
 const routes = [
@@ -37,6 +40,24 @@ const routes = [
     path: '/dashboard',
     name: 'dashboard',
     component: Dashboard,
+    redirect: '/dashboard/browse',
+    children: [
+      {        
+        path: 'browse',
+        name: 'Browse',
+        component: Browse
+      },
+      {        
+        path: 'my-list',
+        name: 'myList',
+        component: MyList
+      },
+      {        
+        path: 'watched',
+        name: 'Watched',
+        component: Watched      
+      }      
+    ],
     meta: {
       meta: {auth: {roles: 'admin', redirect: {name: 'default'}, forbiddenRedirect: '/403'}},
     }

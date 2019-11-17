@@ -40,30 +40,32 @@ class UserController extends Controller
     public function store(Request $request)
     {    
         $body = $request->all();
-        var_dump($body["externalId"]);die();
         $user = User::find(Auth::user()->id);
         $isFilmAlreadySaved = $user->films()->where('externalId', $body["externalId"])->first();
+        $dataSaved = [];
         if ($isFilmAlreadySaved) {
-            if ($body->toWatch == 1 && $isFilmAlreadySaved->toWatch == 0) {
+            if ($body["toWatch"] == 1 && $isFilmAlreadySaved->toWatch == 0) {
                 $isFilmAlreadySaved->toWatch = 1;
-                $isFilmAlreadySaved->toWatch = 1;
-                $isFilmAlreadySaved->save();
-            } else if ($body->watched == 1 && $isFilmAlreadySaved->watched == 0) {
+                $isFilmAlreadySaved->watched = 0;
+                $dataSaved = $isFilmAlreadySaved;
+                $dataSaved->save();
+            } else if ($body["watched"] == 1 && $isFilmAlreadySaved->watched == 0) {
                 $isFilmAlreadySaved->toWatch = 0;
                 $isFilmAlreadySaved->watched = 1;
-                $isFilmAlreadySaved->save();
-            }
-            return response()->json(['error' => 'case to complete'], 200);
+                $dataSaved = $isFilmAlreadySaved;
+                $dataSaved->save();
+            } else return response()->json(['error' => 'case to complete'], 400);
+        } else {
+            $filmToWatch = new Film($body);
+            $filmToWatch->userId = $user->id;
+            $dataSaved = $filmToWatch;
+            $dataSaved->save();
         }
 
-        $filmToWatch = new Film($body);
-        $filmToWatch->userId = $user->id;
-        
-        $filmToWatch->save();
         
         return response()->json([
             'status' => 'success',
-            'data' => $filmToWatch
+            'data' => $dataSaved
         ]);
     }
 

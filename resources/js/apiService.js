@@ -18,9 +18,9 @@ export class APIService{
       "posterPath": data.poster_path,
       "toWatch": true,
       "watched": false,
-      "externalId": data.id
+      "externalId": data.externalId
     }
-    console.log('data', body)
+    console.log('body addToMyList', body)
     const url = `${API_URL}action/store`;
     return axios.post(url, body).then(response => response.data);
   }
@@ -31,8 +31,9 @@ export class APIService{
       "posterPath": data.poster_path,
       "toWatch": false,
       "watched": true,
-      "externalId": data.id
+      "externalId": data.externalId
     }
+    console.log('body addToMyWatchedList', body)
     const url = `${API_URL}action/store-watched`;
     return axios.post(url, body).then(response => response.data);
   }
